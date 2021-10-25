@@ -1,0 +1,93 @@
+第K位数据
+
+#include<stdio.h>
+  #include<iostream>
+  #include<string.h>
+  using namespace std;
+  #define N 10000
+  int a[N];
+  void sortt(int l,int r,int k)
+  {
+      int ll = l,rr = r;
+	      int key = a[l];
+ if(ll >= rr)
+  return ;
+     while(ll < rr)
+     {
+         while(ll < rr && a[rr] >= key) rr--;
+         a[ll]=a[rr];
+         while(ll < rr && a[ll] <= key) ll++;
+         a[rr]=a[ll];
+     }
+     a[ll] = key;
+     if(k > ll - l + 1) sortt(ll + 1, r, k);
+     else sortt(l, ll, k);
+ }
+ int main()
+ {
+     int i;
+     int n,k;
+     while(cin>>n,n)
+     {
+         for(i=0;i<n;i++)
+         cin>>a[i];
+         cin>>k;
+         sortt(0,n-1,k);
+         cout<<a[k-1]<<endl;
+     }
+     return 0;
+ }
+
+
+
+基数排序
+
+
+
+#include <stdio.h>
+#include <stdlib.h>
+void sort_at_i(char **a,int i,int length)
+{
+
+
+   char *temp;
+   int j,k;
+   for(j=0;j<length;j++)
+   {
+        for(k=j;k<length;k++)
+        {
+             if(a[j][i]>a[k][i])
+                 
+                {
+                   temp=a[j];
+                   a[j]=a[k];
+                   a[k]=temp;
+                }
+        }
+   } 
+}
+void radix_sort(char **a,int d,int length)
+{
+     
+    
+     int i,j;
+     for(i=d-1;i>=0;i--)
+     {
+          
+          sort_at_i(a,i,length);
+     } 
+} 
+int main(int argc, char *argv[])
+{
+  int i;
+  char *a[16]={"VGD","DOG","GUE","SGY","ROW","ETG","MJD","MJD","BAR","CNH","TAR","DIG","BIG","TEA","ETY","BCU"};
+  printf("原来的字符串数组是:\n");
+  for(i=0;i<16;i++)
+  printf("%s ",a[i]);
+  radix_sort(a,3,16);
+  printf("\n利用基数排序以后的顺序是:\n");
+  for(i=0;i<16;i++)
+  printf("%s ",a[i]);
+  system("PAUSE"); 
+  return 0;
+} 
